@@ -1,11 +1,16 @@
 import { gql } from '@apollo/client';
 
 export const POKEMONS = gql`
-query Name($name:String!){
-    pokemonByName(name:$name){
+query pokemons($limit:Int!){
+  pokemons(query:{
+    limit:$limit
+  }){
+    edges{
       id
-      number
       name
+      image
+      types
     }
   }
+}
 `;
