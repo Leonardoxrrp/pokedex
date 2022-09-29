@@ -1,7 +1,8 @@
 import ReactDOM from 'react-dom/client';
 import {
-  ApolloClient, InMemoryCache, ApolloProvider, gql,
+  ApolloClient, InMemoryCache, ApolloProvider,
 } from '@apollo/client';
+import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -15,7 +16,9 @@ const root = ReactDOM.createRoot(
   document.getElementById('app'),
 );
 root.render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>,
+  <BrowserRouter>
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
+  </BrowserRouter>,
 );
