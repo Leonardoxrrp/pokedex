@@ -14,3 +14,28 @@ query pokemons($limit:Int!){
   }
 }
 `;
+
+export const POKEMON = gql`
+query pokemon($name:String!){
+  pokemonByName(name:$name) {
+    name
+    maxHP
+    maxCP
+    sound
+    image
+    types
+    evolutions {
+      image
+      name
+    }
+    weight {
+      minimum
+      maximum
+    }
+    height {
+      minimum
+      maximum
+    }
+  }
+}
+`;

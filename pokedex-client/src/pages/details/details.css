@@ -1,0 +1,23 @@
+.details-container {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px gray solid;
+}
+
+.details-info {
+    width: 100%;
+    padding: 5px;
+    background-color: lightgray;
+}
+.details-cp {
+    display: flex;
+    align-items: center;
+}
+
+.details-bar {
+    width: 400px;
+    height: 5px;
+    background-color: blue;
+}

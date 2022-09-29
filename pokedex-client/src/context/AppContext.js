@@ -4,9 +4,10 @@ const Context = createContext(null);
 
 function AppContext({ children }) {
   const [pokemons, setPokemons] = useState([]);
+  const [pokemonByName, setPokemonByName] = useState([]);
   const value = useMemo(() => ({
-    pokemons, setPokemons,
-  }), [pokemons, setPokemons]);
+    pokemons, setPokemons, pokemonByName, setPokemonByName,
+  }), [pokemons, setPokemons, pokemonByName, setPokemonByName]);
 
   return (
     <Context.Provider value={value}>

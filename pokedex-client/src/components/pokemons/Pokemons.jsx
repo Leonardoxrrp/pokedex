@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import React, { useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { Context } from '../../context/AppContext';
 import { POKEMONS } from '../../graphql/queries';
 import './pokemons.css';
@@ -22,13 +23,14 @@ function Pokemons() {
     <div className="pokemons-container">
       {
         pokemons.map((pokemon) => (
-          <div className="pokemons-card">
+          <Link to={pokemon.name} className="pokemons-card" style={{ textDecoration: 'none' }}>
             <img src={pokemon.image} alt={pokemon.name} />
             <div className="pokemons-details">
-              <p className="fw-bold">{pokemon.name}</p>
-              <p>{types(pokemon.types)}</p>
+              <p className="fw-bold pokemon-text">{pokemon.name}</p>
+              <p className="pokemon-text">{types(pokemon.types)}</p>
             </div>
-          </div>
+
+          </Link>
         ))
       }
     </div>
