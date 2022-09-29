@@ -1,9 +1,16 @@
-import React from 'react';
+import { useQuery } from '@apollo/client';
+import { POKEMONS } from './graphql/queries';
 
 function App() {
-  return (
-    <h1>Parcel app</h1>
-  );
+  const { data } = useQuery(POKEMONS, {
+    variables: {
+      name: 'pikachu',
+    },
+  });
+
+  console.log(data);
+
+  return null;
 }
 
 export default App;
