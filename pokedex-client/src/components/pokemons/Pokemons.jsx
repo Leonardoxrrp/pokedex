@@ -1,9 +1,11 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
+import { BsHeart, BsFillHeartFill } from 'react-icons/bs';
 import React, {
-  useEffect, useContext, useCallback, useMemo,
+  useEffect, useContext, useMemo,
 } from 'react';
 import { Link } from 'react-router-dom';
 import { Context } from '../../context/AppContext';
+import { FAVORITE, UNFAVORITE } from '../../graphql/mutations';
 import { POKEMONS } from '../../graphql/queries';
 import './pokemons.css';
 
@@ -11,11 +13,21 @@ function Pokemons() {
   const {
     pokemons, searchPokemon, setPokemons, selectedType, favorites, view,
   } = useContext(Context);
+
+  const [unFavoritePokemon] = useMutation(UNFAVORITE);
+  const [favoritePokemon] = useMutation(FAVORITE, {
+    refetchQueries: [
+      { query: FAVORITE }, // DocumentNode object parsed with gql
+      'favoritePokemon', // Query name
+    ],
+  });
+
   const { loading, data } = useQuery(POKEMONS, {
     variables: {
       limit: 200,
     },
   });
+
   const types = (arr) => arr.join(', ');
   useEffect(() => {
     if (!loading) setPokemons(data.pokemons.edges);
@@ -23,12 +35,14 @@ function Pokemons() {
   const viewContainer = useMemo(() => (view === 'square' ? 'pokemons-container' : 'pokemons-container-vertical'), [view]);
   const viewDetails = useMemo(() => (view === 'square' ? 'pokemons-details' : 'pokemons-details-vertical'), [view]);
   const viewCard = useMemo(() => (view === 'square' ? 'pokemons-card' : 'pokemons-card-vertical'), [view]);
-
+  const handleClick = (id, like) => (like ? favoritePokemon({ variables: { id } })
+    : unFavoritePokemon({ variables: { id } }));
   return (
     <div className={viewContainer}>
       {
         pokemons.filter((pokemon) => {
-          if (favorites === 'all' && !pokemon.isFavorite) return true;
+          if (favorites === 'all') return true;
+          console.log(pokemon.isFavorite, 'pokemon.isFavorite');
           if (favorites === 'favorites' && pokemon.isFavorite) return true;
           return false;
         }).filter((pokemon) => {
@@ -38,13 +52,19 @@ function Pokemons() {
           if (!searchPokemon) return true;
           return pokemon.name.toLowerCase().includes(searchPokemon);
         }).map((pokemon) => (
-          <Link to={pokemon.name} key={pokemon.id} className={viewCard} style={{ textDecoration: 'none' }}>
-            <img src={pokemon.image} alt={pokemon.name} />
+
+          <div key={pokemon.id} className={viewCard}>
+            <Link to={pokemon.name} style={{ textDecoration: 'none' }}>
+              <img src={pokemon.image} alt={pokemon.name} />
+            </Link>
             <div className={viewDetails}>
-              <p className="fw-bold pokemon-text">{pokemon.name}</p>
-              <p className="pokemon-text">{types(pokemon.types)}</p>
+              <Link to={pokemon.name} style={{ textDecoration: 'none' }}>
+                <p className="fw-bold pokemons-text-title">{pokemon.name}</p>
+              </Link>
+              <p className="pokemons-text">{types(pokemon.types)}</p>
+              {pokemon.isFavorite ? <BsFillHeartFill onClick={() => handleClick(pokemon.id, false)} className="heart-icon" /> : <BsHeart onClick={() => handleClick(pokemon.id, true)} className="heart-icon" />}
             </div>
-          </Link>
+          </div>
         ))
       }
     </div>

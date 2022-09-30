@@ -13,7 +13,6 @@ function Details() {
       name,
     },
   });
-  console.log(data, 'dta');
 
   useEffect(() => {
     if (!loading) setPokemonByName(data.pokemonByName);
@@ -28,7 +27,7 @@ function Details() {
           <p>{pokemonByName.types}</p>
           <div className="details-cp">
             <div className="details-bar" />
-            <p className='text'>
+            <p className="text">
               CP:
               {pokemonByName.maxCP}
             </p>

@@ -5,13 +5,8 @@
     row-gap: 10px;
 }
 
-.pokemons-card:hover {
-    cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-
 .pokemons-card {
-    padding-top: 70px;
+    padding-top: 20px;
     display: grid;
     grid-template-rows: 1fr;
     justify-items: center;
@@ -20,16 +15,32 @@
     height: 100%;
 }
 
-.pokemon-text {
+.heart-icon  {
+    position: absolute;
+    right: 10px;
+    bottom: 40%;
+    color: red;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.pokemons-text, .pokemons-text-title
+{
     color: black;
+}
+
+.pokemons-text-title:hover  {
+    opacity: 0.7;
 }
 .pokemons-card img {
     width: 100%;
-    max-width: 150px;
-    height: auto;
+    max-width: 170px;
+    height: 170px;
+    object-fit: contain;
+
 }
 .pokemons-card img:hover {
-    opacity: 0.8
+    opacity: 0.6;
 }
 
 .pokemons-details {
@@ -37,13 +48,15 @@
     display: grid;
     grid-template-rows: 20px;
     padding: 10px 0px 0px 10px;
-    margin-top: 70px;
+    margin-top: 20px;
     background-color: lightgray;
+    position: relative;
 }
 
 .pokemons-container-vertical{
     display: grid;
     grid-template-columns: 1fr;
+    row-gap: 10px;
 }
 
 .pokemons-card-vertical {
@@ -53,6 +66,12 @@
     align-items: center;
     border: 1px gray solid;
     height: 100%;
+    position: relative;
+}
+.pokemons-card-vertical a img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
 }
 .pokemons-details-vertical {
     margin-right: auto;
