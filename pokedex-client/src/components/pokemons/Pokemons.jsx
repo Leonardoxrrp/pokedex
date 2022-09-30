@@ -1,5 +1,7 @@
 import { useQuery } from '@apollo/client';
-import React, { useEffect, useContext } from 'react';
+import React, {
+  useEffect, useContext, useCallback, useMemo,
+} from 'react';
 import { Link } from 'react-router-dom';
 import { Context } from '../../context/AppContext';
 import { POKEMONS } from '../../graphql/queries';
@@ -7,7 +9,7 @@ import './pokemons.css';
 
 function Pokemons() {
   const {
-    pokemons, searchPokemon, setPokemons, selectedType, favorites,
+    pokemons, searchPokemon, setPokemons, selectedType, favorites, view,
   } = useContext(Context);
   const { loading, data } = useQuery(POKEMONS, {
     variables: {
@@ -18,10 +20,12 @@ function Pokemons() {
   useEffect(() => {
     if (!loading) setPokemons(data.pokemons.edges);
   }, [data]);
+  const viewContainer = useMemo(() => (view === 'square' ? 'pokemons-container' : 'pokemons-container-vertical'), [view]);
+  const viewDetails = useMemo(() => (view === 'square' ? 'pokemons-details' : 'pokemons-details-vertical'), [view]);
+  const viewCard = useMemo(() => (view === 'square' ? 'pokemons-card' : 'pokemons-card-vertical'), [view]);
 
-  console.log(data, 'data');
   return (
-    <div className="pokemons-container">
+    <div className={viewContainer}>
       {
         pokemons.filter((pokemon) => {
           if (favorites === 'all' && !pokemon.isFavorite) return true;
@@ -34,9 +38,9 @@ function Pokemons() {
           if (!searchPokemon) return true;
           return pokemon.name.toLowerCase().includes(searchPokemon);
         }).map((pokemon) => (
-          <Link to={pokemon.name} key={pokemon.id} className="pokemons-card" style={{ textDecoration: 'none' }}>
+          <Link to={pokemon.name} key={pokemon.id} className={viewCard} style={{ textDecoration: 'none' }}>
             <img src={pokemon.image} alt={pokemon.name} />
-            <div className="pokemons-details">
+            <div className={viewDetails}>
               <p className="fw-bold pokemon-text">{pokemon.name}</p>
               <p className="pokemon-text">{types(pokemon.types)}</p>
             </div>

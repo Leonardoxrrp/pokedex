@@ -41,6 +41,36 @@
     background-color: lightgray;
 }
 
+.pokemons-container-vertical{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.pokemons-card-vertical {
+    display: grid;
+    grid-template-columns: auto 0.98fr;
+    justify-items: center;
+    align-items: center;
+    border: 1px gray solid;
+    height: 100%;
+}
+.pokemons-details-vertical {
+    margin-right: auto;
+    width: 100%;
+    height: 100%;
+    padding-left: 20px;
+    background-color: lightgray;
+    display: grid;
+    grid-template-rows: 20px;
+    flex-direction: column;
+    align-content: center;
+}
+.pokemons-card-vertical img {
+    width: 100%;
+    max-width: 80px;
+    height: auto;
+}
+
 
 @media only screen and (max-width: 992px) {
     .pokemons-container  {

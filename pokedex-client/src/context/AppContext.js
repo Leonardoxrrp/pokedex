@@ -8,6 +8,7 @@ function AppContext({ children }) {
   const [pokemonByName, setPokemonByName] = useState([]);
   const [types, setTypes] = useState([]);
   const [selectedType, setSelectedType] = useState(null);
+  const [view, setView] = useState('square');
   const [favorites, setFavorites] = useState('all');
   const value = useMemo(() => ({
     pokemons,
@@ -22,11 +23,13 @@ function AppContext({ children }) {
     setSelectedType,
     favorites,
     setFavorites,
+    view,
+    setView,
   }), [pokemons, setPokemons,
     pokemonByName,
     setPokemonByName, searchPokemon,
     setSearchPokemon, types, setTypes,
-    selectedType, setSelectedType, favorites, setFavorites]);
+    selectedType, setSelectedType, favorites, setFavorites, view, setView]);
 
   return (
     <Context.Provider value={value}>
