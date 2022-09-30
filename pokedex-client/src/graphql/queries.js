@@ -10,8 +10,15 @@ query pokemons($limit:Int!){
       name
       image
       types
+      isFavorite
     }
   }
+}
+`;
+
+export const TYPES = gql`
+query pokemon{
+  pokemonTypes
 }
 `;
 

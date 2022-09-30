@@ -1,46 +1,43 @@
-import React from 'react';
+import { useQuery } from '@apollo/client';
+import React, { useContext, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
+import { Context } from '../../context/AppContext';
+import { TYPES } from '../../graphql/queries';
+import Views from '../views/Views';
 import './filters.css';
 
 function Filters() {
+  const {
+    setSearchPokemon, types, setTypes, setSelectedType, setFavorites, favorites,
+  } = useContext(Context);
+  const { loading, data } = useQuery(TYPES);
+
+  const handleSearch = (e) => setSearchPokemon(e.target.value.trim().toLowerCase());
+  const handleType = (e) => setSelectedType(e.target.value);
+  const handleButton = (btn) => setFavorites(btn);
+  useEffect(() => { if (!loading) setTypes(data.pokemonTypes); }, [data]);
+
   return (
     <div className="filters-container">
       <div className="filters-buttons">
-        <Button variant="success">All</Button>
-        <Button variant="success">Favorites</Button>
+        <Button variant={favorites === 'all' ? 'success' : 'outline-success'} onClick={() => handleButton('all')}>All</Button>
+        <Button variant={favorites === 'favorites' ? 'success' : 'outline-success'} onClick={() => handleButton('favorites')}>Favorites</Button>
       </div>
       <div className="filters-options">
-        <input placeholder="search" />
-        <select name="example" id="example">
-          <option value="example">example</option>
-          <option value="example">example</option>
-          <option value="example">example</option>
-          <option value="example">example</option>
-        </select>
-        <div className="filters-views">
-          <div className="filters-vertical-view">
-            <div className="filters-vertical-view-bar" />
-            <div className="filters-vertical-view-bar" />
-            <div className="filters-vertical-view-bar" />
-            <div className="filters-vertical-view-bar" />
-          </div>
-          <div className="filters-square-view">
-            <div className="filters-square-view-group">
-              <div className="filters-square-view-bar" />
-              <div className="filters-square-view-bar" />
-              <div className="filters-square-view-bar" />
-            </div>
-            <div className="filters-square-view-group">
-              <div className="filters-square-view-bar" />
-              <div className="filters-square-view-bar" />
-              <div className="filters-square-view-bar" />
-            </div>
-          </div>
-        </div>
-      </div>
+        <input placeholder="Search" onChange={handleSearch} />
+        <select name="example" id="example" onChange={handleType}>
+          <option value="none" selected disabled hidden>
+            Type
+          </option>
+          {
 
+            types?.map((type) => (
+              <option>{type}</option>
+            ))
+        }
+        </select>
+        <Views />
+      </div>
     </div>
   );
 }

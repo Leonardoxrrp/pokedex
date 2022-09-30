@@ -1,6 +1,9 @@
 .filters-container {
+    padding: 10px;
     display:flex;
     flex-direction: column;
+    border: 1px lightgray solid;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;    margin-bottom: 10px;
 }
 
 .filters-buttons {
@@ -14,59 +17,39 @@
 
 .filters-options {
     display: grid;
-    grid-template-columns: 1fr 1fr 80px;
+    grid-template-columns: 0.9fr auto auto;
+    column-gap: 7px;
+    width: 100%;
+    min-height: 38px;
+    margin: 10px 0px 10px 0px;
+    /* margin: 10px; */
 }
 
-.filters-views {
-    display: grid;
-    grid-template-columns: auto auto;
+.filters-options input, .filters-options select {
+    border: 0px;
+    outline: none;
+    padding-left: 10px;
+    background-color: lightgray !important;
 }
 
-.filters-vertical-view {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto
+@media only screen and (max-width: 767px) {
+    .filters-options {
+        grid-template-columns: auto auto auto;
+    }
+    
 }
 
-.filters-vertical-view {
-    display: flex;
-}
-
-.filters-square-view {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-}
-.filters-square-view-group {
-    display: flex;
-    gap: 1px;
-}
-
-.filters-vertical-view-bar {
-    width: 17px;
-    margin-top:1px;
-    margin-bottom: 1px;
-    height: 2px;
-    background-color: green;
-}
-
-.filters-square-view-bar {
-    width: 5px;
-    margin-top:1px;
-    margin-bottom: 1px;
-    height: 6px;
-    background-color: green;
-}
-
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 600px) {
     .filters-buttons   {
         grid-template-columns: 1fr;
+        gap: 10px;
     }
     .filters-options {
         grid-template-columns: 1fr;
+        gap: 10px;
+
+    }
+    .filters-options input, .filters-options select {
+        height: 38px
     }
 }
