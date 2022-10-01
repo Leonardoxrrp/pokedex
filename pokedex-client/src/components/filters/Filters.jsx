@@ -28,14 +28,14 @@ function Filters() {
       </div>
       <div className="filters-options">
         <input placeholder="Search" onChange={handleSearch} />
-        <select name="example" id="example" onChange={handleType}>
-          <option value="none" selected disabled hidden>
+        <select name="selectType" value="none" onChange={handleType}>
+          <option value="none" disabled hidden>
             Type
           </option>
           {
 
             types?.map((type) => (
-              <option>{type}</option>
+              <option key={type}>{type}</option>
             ))
         }
         </select>

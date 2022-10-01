@@ -38,7 +38,6 @@ function Pokemons() {
     }],
 
   });
-
   const types = (arr) => arr.join(', ');
 
   useEffect(() => {
@@ -48,7 +47,7 @@ function Pokemons() {
   const viewContainer = useMemo(() => (view === 'square' ? 'pokemons-container' : 'pokemons-container-vertical'), [view]);
   const viewDetails = useMemo(() => (view === 'square' ? 'pokemons-details' : 'pokemons-details-vertical'), [view]);
   const viewCard = useMemo(() => (view === 'square' ? 'pokemons-card' : 'pokemons-card-vertical'), [view]);
-  const handleClick = (id, like) => (like ? favoritePokemon({ variables: { id } })
+  const handleFavorite = (id, like) => (like ? favoritePokemon({ variables: { id } })
     : unFavoritePokemon({ variables: { id } }));
   return (
     <div className={viewContainer}>
@@ -73,7 +72,7 @@ function Pokemons() {
                 <p className="fw-bold pokemons-text-title">{pokemon.name}</p>
               </Link>
               <p className="pokemons-text">{types(pokemon.types)}</p>
-              {pokemon.isFavorite ? <BsFillHeartFill onClick={() => handleClick(pokemon.id, false)} className="heart-icon" /> : <BsHeart onClick={() => handleClick(pokemon.id, true)} className="heart-icon" />}
+              {pokemon.isFavorite ? <BsFillHeartFill onClick={() => handleFavorite(pokemon.id, false)} className="heart-icon" /> : <BsHeart onClick={() => handleFavorite(pokemon.id, true)} className="heart-icon" />}
             </div>
           </div>
         ))

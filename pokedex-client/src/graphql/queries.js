@@ -29,11 +29,16 @@ query pokemon($name:String!){
     maxHP
     maxCP
     sound
+    isFavorite
+    sound
+    id
     image
     types
     evolutions {
       image
       name
+      id
+      isFavorite
     }
     weight {
       minimum
