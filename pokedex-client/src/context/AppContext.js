@@ -1,4 +1,6 @@
-import React, { createContext, useMemo, useState } from 'react';
+import React, {
+  createContext, useEffect, useMemo, useState,
+} from 'react';
 
 const Context = createContext(null);
 
@@ -31,6 +33,11 @@ function AppContext({ children }) {
     setSearchPokemon, types, setTypes,
     selectedType, setSelectedType, favorites, setFavorites, view, setView]);
 
+  useEffect(() => {
+    const data = sessionStorage.getItem('favorites');
+    if (!data) return;
+    setFavorites(data);
+  }, []);
   return (
     <Context.Provider value={value}>
       {children}

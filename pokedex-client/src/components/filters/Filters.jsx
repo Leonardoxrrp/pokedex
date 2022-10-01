@@ -14,7 +14,10 @@ function Filters() {
 
   const handleSearch = (e) => setSearchPokemon(e.target.value.trim().toLowerCase());
   const handleType = (e) => setSelectedType(e.target.value);
-  const handleButton = (btn) => setFavorites(btn);
+  const handleButton = (btn) => {
+    setFavorites(btn);
+    sessionStorage.setItem('favorites', btn);
+  };
   useEffect(() => { if (!loading) setTypes(data.pokemonTypes); }, [data]);
 
   return (
