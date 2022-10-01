@@ -136,21 +136,37 @@
     width:100%;
     display: grid;
     padding-left: 10px;
-    height: 40px;
+    height: 30px;
     margin-top: 20px;
     background-color: lightgray;
     position: relative;
 }
 
 .evolution-name {
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .heart-icon-evolution {
     position: absolute;
-    bottom: 10px;
+    bottom: 5px;
     right: 10px;
     color: red;
     cursor: pointer;
     font-size: 18px;
+}
+
+@media only screen and (max-width: 992px) {
+    .details-evolutions  {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+@media only screen and (max-width: 767px) {
+    .details-evolutions  {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media only screen and (max-width: 480px) {
+    .details-evolutions  {
+        grid-template-columns: 1fr;
+    }
 }
