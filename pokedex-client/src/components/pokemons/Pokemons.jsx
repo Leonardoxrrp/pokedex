@@ -14,24 +14,37 @@ function Pokemons() {
     pokemons, searchPokemon, setPokemons, selectedType, favorites, view,
   } = useContext(Context);
 
-  const [unFavoritePokemon] = useMutation(UNFAVORITE);
-  const [favoritePokemon] = useMutation(FAVORITE, {
-    refetchQueries: [
-      { query: FAVORITE }, // DocumentNode object parsed with gql
-      'favoritePokemon', // Query name
-    ],
-  });
-
   const { loading, data } = useQuery(POKEMONS, {
     variables: {
       limit: 200,
     },
   });
 
+  const [unFavoritePokemon] = useMutation(UNFAVORITE, {
+    refetchQueries: [{
+      query: POKEMONS,
+      variables: {
+        limit: 200,
+      },
+    }],
+
+  });
+  const [favoritePokemon] = useMutation(FAVORITE, {
+    refetchQueries: [{
+      query: POKEMONS,
+      variables: {
+        limit: 200,
+      },
+    }],
+
+  });
+
   const types = (arr) => arr.join(', ');
+
   useEffect(() => {
     if (!loading) setPokemons(data.pokemons.edges);
   }, [data]);
+
   const viewContainer = useMemo(() => (view === 'square' ? 'pokemons-container' : 'pokemons-container-vertical'), [view]);
   const viewDetails = useMemo(() => (view === 'square' ? 'pokemons-details' : 'pokemons-details-vertical'), [view]);
   const viewCard = useMemo(() => (view === 'square' ? 'pokemons-card' : 'pokemons-card-vertical'), [view]);
@@ -42,7 +55,6 @@ function Pokemons() {
       {
         pokemons.filter((pokemon) => {
           if (favorites === 'all') return true;
-          console.log(pokemon.isFavorite, 'pokemon.isFavorite');
           if (favorites === 'favorites' && pokemon.isFavorite) return true;
           return false;
         }).filter((pokemon) => {
@@ -52,7 +64,6 @@ function Pokemons() {
           if (!searchPokemon) return true;
           return pokemon.name.toLowerCase().includes(searchPokemon);
         }).map((pokemon) => (
-
           <div key={pokemon.id} className={viewCard}>
             <Link to={pokemon.name} style={{ textDecoration: 'none' }}>
               <img src={pokemon.image} alt={pokemon.name} />
