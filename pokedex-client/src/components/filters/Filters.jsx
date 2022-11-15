@@ -28,8 +28,8 @@ function Filters() {
       </div>
       <div className="filters-options">
         <input placeholder="Search" onChange={handleSearch} />
-        <select name="selectType" value="none" onChange={handleType}>
-          <option value="none" disabled hidden>
+        <select name="selectType" onChange={handleType}>
+          <option value="" selected disabled hidden>
             Type
           </option>
           {
